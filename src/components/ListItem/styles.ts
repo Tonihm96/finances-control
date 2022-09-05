@@ -1,8 +1,6 @@
 import styled from 'styled-components/native';
 import { Foundation } from '@expo/vector-icons';
 
-import { Text } from '../../components/Text';
-
 interface TransactionType {
   credDeb: string | 'C' | 'D';
 }

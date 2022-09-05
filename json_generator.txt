@@ -1,0 +1,14 @@
+{
+  "transactions": repeat(500, {
+    "id": random(1, 9999999),
+    "value": randomFloat(1, 500, 3),
+    "description": choice('velit','ante','justo','id','commodo','facilisis','ut','turpis','senectus','porttitor','condimentum','consectetur','vivamus','tincidunt','porta','habitant','lacus','cubilia','velit','per'),
+    "date": date('Y-m-d H:i:s', '2022-01-01 00:00:00', '2022-12-31 00:00:00'),
+    "month": function(){
+      return new Date(this.date).getMonth();
+    },
+    "cred_deb": choice('C','D'),
+    "created_at": date('Y-m-d H:i:s', '2022-01-01 00:00:00', '2022-12-31 00:00:00'),
+    "updated_at": date('Y-m-d H:i:s', '2022-01-01 00:00:00', '2022-12-31 00:00:00')
+  })
+}

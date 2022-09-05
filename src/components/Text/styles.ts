@@ -20,10 +20,14 @@ export const TextContainer = styled.Text<TextProps>`
       case 'subtitle':
         return theme.font_sizes.small;
 
+      case 'legend':
+        return theme.font_sizes.minimum;
+
       default:
         return theme.font_sizes.medium;
     }
   }}px;
+
   color: ${({ theme, variant }) => {
     switch (variant) {
       case 'h1':
@@ -39,6 +43,9 @@ export const TextContainer = styled.Text<TextProps>`
         return theme.colors.body;
 
       case 'subtitle':
+        return theme.colors.subtitle;
+
+      case 'legend':
         return theme.colors.subtitle;
 
       default:

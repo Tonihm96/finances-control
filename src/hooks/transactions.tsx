@@ -1,6 +1,6 @@
 import React, { createContext, ReactNode, useContext, useState } from 'react';
-
-import transactionsData from '../assets/transactions';
+import { format } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 interface TransactionProviderProps {
   children: ReactNode;
@@ -9,29 +9,37 @@ interface TransactionProviderProps {
 export interface Transaction {
   id: string;
   value: string;
-  descripition: string;
+  description: string;
+  category: string;
   date: string;
-  cred_deb: string | 'C' | 'D';
+  month: number;
+  cred_deb: 'C' | 'D';
   created_at: string;
   updated_at: string;
 }
 
 interface TransactionsContextData {
   transactions: Transaction[];
-  requestTransactions(): void;
+  loading: boolean;
+  requestTransactions(credDeb?: 'C' | 'D', month?: number): void;
 }
 
 const TransactionsContext = createContext({} as TransactionsContextData);
 
 export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
+  const [loading, setLoading] = useState(false);
 
-  function requestTransactions() {
-    setTransactions(transactionsData);
+  async function requestTransactions(credDeb?: 'C' | 'D', month?: number) {
+    const HOST = 'http://192.168.0.200:3333/transactions';
+
+    const response = await fetch(`${HOST}`);
   }
 
   return (
-    <TransactionsContext.Provider value={{ transactions, requestTransactions }}>
+    <TransactionsContext.Provider
+      value={{ transactions, loading, requestTransactions }}
+    >
       {children}
     </TransactionsContext.Provider>
   );

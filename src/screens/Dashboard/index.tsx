@@ -1,26 +1,36 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ListRenderItemInfo } from 'react-native';
+import { VictoryLine, VictoryPie } from 'victory-native';
+import { format, add, sub } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 
 import { Transaction, useTransactions } from '../../hooks/transactions';
 
 import {
   Container,
-  TransactionList,
-  ListSeparator,
   MonthSelector,
-  MonthSelectButton,
-  MonthSelectIcon,
-  Month
+  CardsContainer,
+  RecentTransactions
 } from './styles';
+
 import { ListItem } from '../../components/ListItem';
+import { Text } from '../../components/Text';
+import { IconButton } from '../../components/IconButton';
+import { Divider } from '../../components/Divider';
+import { AreaChart } from '../../components/AreaChart';
+import { SummaryCard } from '../../components/SummaryCard';
 
 export function Dashboard() {
-  const { transactions, requestTransactions } = useTransactions();
+  const [curDate, setCurDate] = useState(new Date());
+
+  const currentMonth = format(curDate, 'MMMM, yyyy', { locale: ptBR });
+  const monthData: Array<Object> = [];
+  const recentTransactions: Array<Object> = [];
 
   function renderItem({ item }: ListRenderItemInfo<Transaction>) {
     return (
       <ListItem
-        title={item.descripition}
+        title={item.description}
         value={item.value}
         date={item.date}
         credDeb={item.cred_deb}
@@ -32,28 +42,33 @@ export function Dashboard() {
     return item.id;
   }
 
-  useEffect(() => {
-    requestTransactions();
-  }, []);
+  function itemSeparatorComponent() {
+    return <Divider />;
+  }
 
   return (
     <Container>
       <MonthSelector>
-        <MonthSelectButton onPress={() => null}>
-          {/* <MonthSelectIcon /> */}
-        </MonthSelectButton>
-
-        <Month></Month>
-
-        <MonthSelectButton onPress={() => null}>
-          {/* <MonthSelectIcon /> */}
-        </MonthSelectButton>
+        <IconButton
+          name='left'
+          onPress={() => setCurDate(prev => sub(prev, { months: 1 }))}
+        />
+        <Text transform='capitalize'>{currentMonth}</Text>
+        <IconButton
+          name='right'
+          onPress={() => setCurDate(prev => add(prev, { months: 1 }))}
+        />
       </MonthSelector>
-      <TransactionList
-        data={transactions}
+      <AreaChart data={monthData} />
+      <CardsContainer>
+        <SummaryCard type='C' title='Crédito total' content='R$ 1.000,00' />
+        <SummaryCard type='D' title='Débito total' content='R$ 1.000,00' />
+      </CardsContainer>
+      <RecentTransactions
         renderItem={renderItem}
         keyExtractor={keyExtractor}
-        ItemSeparatorComponent={ListSeparator}
+        itemSeparatorComponent={itemSeparatorComponent}
+        data={recentTransactions}
       />
     </Container>
   );

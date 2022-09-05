@@ -16,7 +16,17 @@ export default {
     subtitle: 'hsl(0, 0%, 50%)'
   },
 
+  sizes: {
+    minimum: RFValue(4),
+    small: RFValue(8),
+    medium: RFValue(16),
+    large: RFValue(24),
+    xlarge: RFValue(32),
+    xxlarge: RFValue(64)
+  },
+
   font_sizes: {
+    minimum: RFValue(10),
     small: RFValue(12),
     medium: RFValue(14),
     large: RFValue(16),
