@@ -16,8 +16,12 @@ export function SummaryCard({ title, content, type }: Props) {
 
   return (
     <Container width={width} type={type}>
-      <Text variant='subtitle'>{title}</Text>
-      <Text variant='h3'>{content}</Text>
+      <Text variant='body' mode='dark'>
+        {title}
+      </Text>
+      <Text variant='h3' mode='dark'>
+        {content}
+      </Text>
     </Container>
   );
 }

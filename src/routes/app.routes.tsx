@@ -1,5 +1,4 @@
 import React from 'react';
-import { Foundation as Icon } from '@expo/vector-icons';
 import {
   createBottomTabNavigator,
   BottomTabNavigationOptions
@@ -31,10 +30,7 @@ export function AppRoutes() {
   return (
     <TransactionsProvider>
       <Navigator screenOptions={createScreeOptions}>
-        <Screen
-          name='Dashboard'
-          component={Dashboard}
-        />
+        <Screen name='Dashboard' component={Dashboard} />
       </Navigator>
     </TransactionsProvider>
   );

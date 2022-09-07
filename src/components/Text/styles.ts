@@ -1,8 +1,8 @@
 import styled, { css } from 'styled-components/native';
 
-import { TextProps } from '.';
+import { Props } from '.';
 
-export const TextContainer = styled.Text<TextProps>`
+export const TextContainer = styled.Text<Props>`
   font-size: ${({ theme, variant }) => {
     switch (variant) {
       case 'h1':
@@ -28,30 +28,35 @@ export const TextContainer = styled.Text<TextProps>`
     }
   }}px;
 
-  color: ${({ theme, variant }) => {
-    switch (variant) {
-      case 'h1':
-        return theme.colors.heading;
+  color: ${({ color }) =>
+    color
+      ? color
+      : css<Props>`
+          ${({ theme, variant }) => {
+            switch (variant) {
+              case 'h1':
+                return theme.colors.heading;
 
-      case 'h2':
-        return theme.colors.heading;
+              case 'h2':
+                return theme.colors.heading;
 
-      case 'h3':
-        return theme.colors.heading;
+              case 'h3':
+                return theme.colors.heading;
 
-      case 'body':
-        return theme.colors.body;
+              case 'body':
+                return theme.colors.body;
 
-      case 'subtitle':
-        return theme.colors.subtitle;
+              case 'subtitle':
+                return theme.colors.subtitle;
 
-      case 'legend':
-        return theme.colors.subtitle;
+              case 'legend':
+                return theme.colors.subtitle;
 
-      default:
-        return theme.font_sizes.medium;
-    }
-  }};
+              default:
+                return theme.colors.body;
+            }
+          }};
+        `};
 
   text-transform: ${({ transform }) => {
     switch (transform) {

@@ -9,7 +9,7 @@ export const Container = styled.View`
 export const CardsContainer = styled.View`
   padding: ${({ theme }) => theme.sizes.medium}px;
 
-  flex: 1;
+  flex: 0.5;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-between;
@@ -23,4 +23,6 @@ export const MonthSelector = styled.View`
   align-items: center;
 `;
 
-export const RecentTransactions = styled.FlatList``;
+export const RecentTransactions = styled.FlatList`
+  flex: 1;
+`;

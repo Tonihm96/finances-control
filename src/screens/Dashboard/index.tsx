@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { ListRenderItemInfo } from 'react-native';
+import { ActivityIndicator, ListRenderItemInfo } from 'react-native';
 import { VictoryLine, VictoryPie } from 'victory-native';
-import { format, add, sub } from 'date-fns';
+import { format, add, sub, getMonth } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
 import { Transaction, useTransactions } from '../../hooks/transactions';
@@ -21,11 +21,11 @@ import { AreaChart } from '../../components/AreaChart';
 import { SummaryCard } from '../../components/SummaryCard';
 
 export function Dashboard() {
+  const { transactions, loading, requestTransactions } = useTransactions();
   const [curDate, setCurDate] = useState(new Date());
 
   const currentMonth = format(curDate, 'MMMM, yyyy', { locale: ptBR });
   const monthData: Array<Object> = [];
-  const recentTransactions: Array<Object> = [];
 
   function renderItem({ item }: ListRenderItemInfo<Transaction>) {
     return (
@@ -46,6 +46,14 @@ export function Dashboard() {
     return <Divider />;
   }
 
+  useEffect(() => {
+    requestTransactions(getMonth(curDate));
+  }, []);
+
+  useEffect(() => {
+    requestTransactions(getMonth(curDate));
+  }, [curDate]);
+
   return (
     <Container>
       <MonthSelector>
@@ -64,12 +72,16 @@ export function Dashboard() {
         <SummaryCard type='C' title='Crédito total' content='R$ 1.000,00' />
         <SummaryCard type='D' title='Débito total' content='R$ 1.000,00' />
       </CardsContainer>
-      <RecentTransactions
-        renderItem={renderItem}
-        keyExtractor={keyExtractor}
-        itemSeparatorComponent={itemSeparatorComponent}
-        data={recentTransactions}
-      />
+      {loading ? (
+        <ActivityIndicator />
+      ) : (
+        <RecentTransactions
+          renderItem={renderItem}
+          keyExtractor={keyExtractor}
+          itemSeparatorComponent={itemSeparatorComponent}
+          data={transactions}
+        />
+      )}
     </Container>
   );
 }

@@ -3,16 +3,14 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import { AppRoutes } from './app.routes';
 
-//import { useAuth } from '../hooks/auth'
+import { Login } from '../screens/Login';
 
 export function Routes() {
-  //const { user } = useAuth();
-  const user = { id: 1 };
+  const isAuthenticated = false;
 
   return (
     <NavigationContainer>
-      <AppRoutes />
-      {/*user.id ? <AppRoutes /> : <AuthRoutes />*/}
+      {isAuthenticated ? <AppRoutes /> : <Login />}
     </NavigationContainer>
   );
 }

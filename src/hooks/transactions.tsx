@@ -1,4 +1,10 @@
-import React, { createContext, ReactNode, useContext, useState } from 'react';
+import React, {
+  createContext,
+  ReactNode,
+  useContext,
+  useEffect,
+  useState
+} from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -21,7 +27,7 @@ export interface Transaction {
 interface TransactionsContextData {
   transactions: Transaction[];
   loading: boolean;
-  requestTransactions(credDeb?: 'C' | 'D', month?: number): void;
+  requestTransactions(month: number, credDeb?: 'C' | 'D'): void;
 }
 
 const TransactionsContext = createContext({} as TransactionsContextData);
@@ -30,10 +36,18 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
 
-  async function requestTransactions(credDeb?: 'C' | 'D', month?: number) {
+  async function requestTransactions(month: number, credDeb?: 'C' | 'D') {
     const HOST = 'http://192.168.0.200:3333/transactions';
+    const transactionTypeParam =
+      credDeb === 'C' || credDeb === 'D' ? `&cred_deb=${credDeb}` : ``;
 
-    const response = await fetch(`${HOST}`);
+    setLoading(true);
+    const response = await fetch(
+      `${HOST}?month=${month}${transactionTypeParam}&_sort=date&_order=desc&_limit=10`
+    ).then(res => res.json());
+
+    setTransactions(response);
+    setLoading(false);
   }
 
   return (

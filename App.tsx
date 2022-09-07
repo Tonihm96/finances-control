@@ -13,7 +13,7 @@ export default function App() {
       <ThemeProvider theme={theme}>
         <StatusBar
           backgroundColor='transparent'
-          barStyle='dark-content'
+          barStyle='light-content'
           translucent
         />
         <Routes />
