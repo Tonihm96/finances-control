@@ -10,6 +10,8 @@ export default {
 
     success: 'hsl(147, 80%, 36%)',
     error: 'hsl(350, 79%, 58%)',
+    disabled: 'hsl(0, 0%, 50%)',
+    disabled_light: 'hsl(0, 0%, 90%)',
 
     heading: 'hsl(0, 0%, 10%)',
     body: 'hsl(0, 0%,25%)',

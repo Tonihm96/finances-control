@@ -1,10 +1,10 @@
 import React from 'react';
 import { TextInputProps } from 'react-native';
 
-import { Container } from './styles';
+import { TextInputComponent } from './styles';
 
 export interface Props extends TextInputProps {}
 
-export function TextInput({}: Props) {
-  return <Container></Container>;
+export function TextInput({ ...rest }: Props) {
+  return <TextInputComponent {...rest} />;
 }

@@ -1,4 +1,8 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { ActivityIndicator } from 'react-native';
+
+import { useTheme } from 'styled-components/native';
+import { useAuth } from '../../hooks/auth';
 
 import { Text } from '../../components/Text';
 import { TextInput } from '../../components/TextInput';
@@ -14,6 +18,11 @@ import {
 } from './styles';
 
 export function Login() {
+  const theme = useTheme();
+  const { requestLogin, loading } = useAuth();
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
   return (
     <Container>
       <LogoContainer>
@@ -23,17 +32,33 @@ export function Login() {
       </LogoContainer>
       <FormContainer>
         <InputGroup>
-          <Text>Login</Text>
-          <TextInput />
+          <Text>Usuário</Text>
+          <TextInput editable={!loading} onChangeText={setUsername} />
         </InputGroup>
         <InputGroup>
           <Text>Senha</Text>
-          <TextInput />
+          <TextInput
+            editable={!loading}
+            secureTextEntry
+            onChangeText={setPassword}
+          />
         </InputGroup>
         <ButtonContainer>
-          <Button type='outlined'>Criar conta</Button>
+          <Button enabled={!loading} type='outlined'>
+            Criar conta
+          </Button>
           <Spacer size='medium' side='left' />
-          <Button>Login</Button>
+          <Button
+            enabled={!loading}
+            type='contained'
+            onPress={() => requestLogin(username, password)}
+          >
+            {loading ? (
+              <ActivityIndicator size={22} color={theme.colors.background} />
+            ) : (
+              'Entrar'
+            )}
+          </Button>
         </ButtonContainer>
       </FormContainer>
     </Container>

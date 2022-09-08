@@ -4,6 +4,7 @@ import { RectButton } from 'react-native-gesture-handler';
 import { Props } from '.';
 
 export const Container = styled(RectButton)<Props>`
+  opacity: ${({ enabled }) => (enabled ? 1 : 0.5)};
   ${({ type }) =>
     type === 'contained' &&
     css`
