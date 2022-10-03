@@ -27,6 +27,7 @@ export interface Transaction {
 interface TransactionsContextData {
   transactions: Transaction[];
   loading: boolean;
+  requestRecentTransactions(): void;
   requestTransactions(month: number, credDeb?: 'C' | 'D'): void;
 }
 
@@ -36,8 +37,9 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [loading, setLoading] = useState(false);
 
+  const HOST = 'http://192.168.0.200:3333/transactions';
+
   async function requestTransactions(month: number, credDeb?: 'C' | 'D') {
-    const HOST = 'http://192.168.0.200:3333/transactions';
     const transactionTypeParam =
       credDeb === 'C' || credDeb === 'D' ? `&cred_deb=${credDeb}` : ``;
 
@@ -50,9 +52,24 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
     setLoading(false);
   }
 
+  async function requestRecentTransactions() {
+    setLoading(true);
+    const response = await fetch(
+      `${HOST}?_sort=date&_order=desc&_limit=10`
+    ).then(res => res.json());
+
+    setTransactions(response);
+    setLoading(false);
+  }
+
   return (
     <TransactionsContext.Provider
-      value={{ transactions, loading, requestTransactions }}
+      value={{
+        transactions,
+        loading,
+        requestRecentTransactions,
+        requestTransactions
+      }}
     >
       {children}
     </TransactionsContext.Provider>

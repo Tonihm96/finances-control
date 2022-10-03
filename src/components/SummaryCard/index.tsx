@@ -2,7 +2,7 @@ import React from 'react';
 import { useWindowDimensions } from 'react-native';
 import { Text } from '../Text';
 
-import { Container } from './styles';
+import { Container, Indicator, ContentContainer } from './styles';
 
 export interface Props {
   title: string;
@@ -16,12 +16,11 @@ export function SummaryCard({ title, content, type }: Props) {
 
   return (
     <Container width={width} type={type}>
-      <Text variant='body' mode='dark'>
-        {title}
-      </Text>
-      <Text variant='h3' mode='dark'>
-        {content}
-      </Text>
+      <Indicator type={type} />
+      <ContentContainer>
+        <Text variant='legend'>{title}</Text>
+        <Text variant='body'>{content}</Text>
+      </ContentContainer>
     </Container>
   );
 }

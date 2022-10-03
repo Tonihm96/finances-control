@@ -4,56 +4,32 @@ import { AntDesign } from '@expo/vector-icons';
 import { Props } from '.';
 
 export const IconComponent = styled(AntDesign)<Props>`
-  font-size: ${({ theme, iconSize }) => {
-    switch (iconSize) {
+  font-size: ${({ theme, size = 'large' }) => {
+    const { font_sizes } = theme;
+
+    switch (size) {
       case 'minimum':
-        return theme.font_sizes.minimum;
+        return font_sizes.minimum;
 
       case 'small':
-        return theme.font_sizes.small;
+        return font_sizes.small;
 
       case 'medium':
-        return theme.font_sizes.medium;
+        return font_sizes.medium;
 
       case 'large':
-        return theme.font_sizes.large;
+        return font_sizes.large;
 
       case 'xlarge':
-        return theme.font_sizes.xlarge;
+        return font_sizes.xlarge;
 
       case 'xxlarge':
-        return theme.font_sizes.xxlarge;
+        return font_sizes.xxlarge;
 
       default:
-        return theme.font_sizes.large;
+        return font_sizes.large;
     }
   }}px;
 
-  color: ${({ theme, iconColor }) => {
-    switch (iconColor) {
-      case 'primary':
-        return theme.colors.primary;
-
-      case 'secondary':
-        return theme.colors.secondary;
-
-      case 'background':
-        return theme.colors.background;
-
-      case 'outline':
-        return theme.colors.outline;
-
-      case 'success':
-        return theme.colors.success;
-
-      case 'error':
-        return theme.colors.error;
-
-      case 'body':
-        return theme.colors.body;
-
-      default:
-        return theme.colors.body;
-    }
-  }};
+  color: ${({ theme, color = 'body' }) => theme.colors[color]};
 `;

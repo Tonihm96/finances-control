@@ -302,17 +302,10 @@ export interface Props {
     | 'yuque'
     | 'slack'
     | 'slack-square';
-  iconSize?: 'minimum' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
-  iconColor?:
-    | 'primary'
-    | 'secondary'
-    | 'background'
-    | 'outline'
-    | 'success'
-    | 'error'
-    | 'body';
+  size?: 'minimum' | 'small' | 'medium' | 'large' | 'xlarge' | 'xxlarge';
+  color?: 'primary' | 'secondary' | 'background' | 'outline' | 'success' | 'error' | 'body';
 }
 
-export function Icon({ name, iconSize, iconColor }: Props) {
-  return <IconComponent name={name} size={iconSize} color={iconColor} />;
+export function Icon({ name, size, color }: Props) {
+  return <IconComponent name={name} size={size} color={color} />;
 }

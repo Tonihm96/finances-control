@@ -27,8 +27,6 @@ ${({ type }) =>
     `}
   
   border-radius: ${({ theme }) => theme.sizes.minimum}px;
-
-  flex: 1;
 `;
 
 export const Content = styled.View<Props>`
@@ -56,8 +54,7 @@ ${({ type }) =>
   border-radius: ${({ theme }) => theme.sizes.minimum}px;
   border-width: 1px;
 
-  padding: ${({ theme }) => theme.sizes.small}px
-    ${({ theme }) => theme.sizes.small * 2}px;
+  padding: ${({ theme }) => theme.sizes.small * 1.25}px ${({ theme }) => theme.sizes.small * 1.25 * 2}px;
 
   justify-content: center;
   align-items: center;

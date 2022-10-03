@@ -7,11 +7,15 @@ export const Container = styled.View`
   padding-top: ${getStatusBarHeight()}px;
 
   flex: 1;
-  justify-content: flex-end;
+`;
+
+export const BackButtonContainer = styled.View`
+  justify-content: flex-start;
+  align-items: flex-start;
 `;
 
 export const LogoContainer = styled.View`
-  flex: 1;
+  flex: 0.5;
   justify-content: center;
   align-items: center;
 `;
@@ -19,12 +23,12 @@ export const LogoContainer = styled.View`
 export const FormContainer = styled.View`
   background-color: ${({ theme }) => theme.colors.shape};
 
+  flex: 1;
+
   padding: ${({ theme }) => theme.sizes.xlarge}px;
 
   border-top-left-radius: ${({ theme }) => theme.sizes.medium}px;
   border-top-right-radius: ${({ theme }) => theme.sizes.medium}px;
-
-  flex: 1.5;
 `;
 
 export const InputGroup = styled.View`

@@ -4,7 +4,7 @@ import { TextProps } from 'react-native';
 import { TextContainer } from './styles';
 
 export interface Props extends TextProps {
-  children: ReactNode;
+  children?: ReactNode;
   /**
    * - `capitalize`
    * - `uppercase`
@@ -22,26 +22,17 @@ export interface Props extends TextProps {
    */
   variant?: 'h1' | 'h2' | 'h3' | 'body' | 'subtitle' | 'legend';
   color?: string | undefined;
+  bold?: boolean;
+  mode?: 'dark' | 'light';
 }
 
 /**
  * Componente de texto com estilização padrão
  * @author Antonio
  */
-export function Text({
-  children,
-  transform = 'none',
-  variant = 'body',
-  color,
-  ...rest
-}: Props) {
+export function Text({ children, transform = 'none', variant = 'body', color, bold, mode, ...rest }: Props) {
   return (
-    <TextContainer
-      transform={transform}
-      variant={variant}
-      color={color}
-      {...rest}
-    >
+    <TextContainer transform={transform} variant={variant} color={color} mode={mode} bold={bold} {...rest}>
       {children}
     </TextContainer>
   );

@@ -28,8 +28,35 @@ export const TextContainer = styled.Text<Props>`
     }
   }}px;
 
-  color: ${({ color }) =>
-    color
+  color: ${({ color, mode }) =>
+    mode === 'light'
+      ? css<Props>`
+          ${({ theme, variant }) => {
+            switch (variant) {
+              case 'h1':
+                return theme.colors.heading_light;
+
+              case 'h2':
+                return theme.colors.heading_light;
+
+              case 'h3':
+                return theme.colors.heading_light;
+
+              case 'body':
+                return theme.colors.body_light;
+
+              case 'subtitle':
+                return theme.colors.subtitle_light;
+
+              case 'legend':
+                return theme.colors.subtitle_light;
+
+              default:
+                return theme.colors.body_light;
+            }
+          }};
+        `
+      : color
       ? color
       : css<Props>`
           ${({ theme, variant }) => {
@@ -58,22 +85,14 @@ export const TextContainer = styled.Text<Props>`
           }};
         `};
 
-  text-transform: ${({ transform }) => {
-    switch (transform) {
-      case 'capitalize':
-        return css`capitalize`;
+  text-transform: ${({ transform = 'none' }) =>
+    css`
+      ${transform}
+    `};
 
-      case 'uppercase':
-        return css`uppercase`;
-
-      case 'lowercase':
-        return css`lowercase`;
-
-      case 'none':
-        return css`none`;
-
-      default:
-        return css`none`;
-    }
-  }};
+  ${({ bold }) =>
+    bold &&
+    css`
+      font-weight: bold;
+    `}
 `;

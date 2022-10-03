@@ -2,11 +2,11 @@ import { RFValue } from 'react-native-responsive-fontsize';
 
 export default {
   colors: {
-    primary: '#00509d',
-    secondary: '#ffd500',
-    background: 'hsl(209, 100%, 98%)',
+    primary: '#3DA5D9',
+    background: 'hsl(0, 0%, 100%)',
+    shape: 'hsl(0, 0%, 98%)',
 
-    outline: 'hsl(209, 100%, 88%)',
+    outline: '#E5E5E5',
 
     success: 'hsl(147, 80%, 36%)',
     error: 'hsl(350, 79%, 58%)',
@@ -15,10 +15,10 @@ export default {
 
     heading: 'hsl(0, 0%, 10%)',
     body: 'hsl(0, 0%,25%)',
-    subtitle: 'hsl(0, 0%, 40%)',
-    heading_light: 'hsl(0, 0%, 90%)',
-    body_light: 'hsl(0, 0%,75%)',
-    subtitle_light: 'hsl(0, 0%, 60%)'
+    subtitle: 'hsl(0, 0%, 35%)',
+    heading_light: 'hsl(0, 0%, 100%)',
+    body_light: 'hsl(0, 0%,95%)',
+    subtitle_light: 'hsl(0, 0%, 95%)'
   },
 
   sizes: {
