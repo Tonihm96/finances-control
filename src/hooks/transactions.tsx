@@ -1,10 +1,4 @@
-import React, {
-  createContext,
-  ReactNode,
-  useContext,
-  useEffect,
-  useState
-} from 'react';
+import React, { createContext, ReactNode, useContext, useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import { ptBR } from 'date-fns/locale';
 
@@ -40,13 +34,10 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
   const HOST = 'http://192.168.0.200:3333/transactions';
 
   async function requestTransactions(month: number, credDeb?: 'C' | 'D') {
-    const transactionTypeParam =
-      credDeb === 'C' || credDeb === 'D' ? `&cred_deb=${credDeb}` : ``;
+    const transactionTypeParam = credDeb === 'C' || credDeb === 'D' ? `&cred_deb=${credDeb}` : ``;
 
     setLoading(true);
-    const response = await fetch(
-      `${HOST}?month=${month}${transactionTypeParam}&_sort=date&_order=desc&_limit=10`
-    ).then(res => res.json());
+    const response = await fetch(`${HOST}?month=${month}${transactionTypeParam}&_sort=date&_order=desc&_limit=10`).then(res => res.json());
 
     setTransactions(response);
     setLoading(false);
@@ -54,9 +45,7 @@ export function TransactionsProvider({ children }: TransactionProviderProps) {
 
   async function requestRecentTransactions() {
     setLoading(true);
-    const response = await fetch(
-      `${HOST}?_sort=date&_order=desc&_limit=10`
-    ).then(res => res.json());
+    const response = await fetch(`${HOST}?_sort=date&_order=desc&_limit=10`).then(res => res.json());
 
     setTransactions(response);
     setLoading(false);
@@ -80,9 +69,7 @@ export function useTransactions() {
   const context = useContext(TransactionsContext);
 
   if (!context) {
-    throw new Error(
-      'useTransactions must be used within a TransactionsProvider'
-    );
+    throw new Error('useTransactions must be used within a TransactionsProvider');
   }
 
   return context;
